@@ -160,6 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       //............A COMPLETER............
       //si la personne récupérée n'a pas d'id alors on lance une exception
+      int id = int.parse(idController.text);
+      personneRecuperee = await provider.getPersonne(id);
+
       if (personneRecuperee.id == null) {
         throw Exception('Aucune personne sélectionnée pour la suppression.');
       }
@@ -174,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // Utiliser Future.delayed pour éviter les problèmes de contexte asynchrone
       Future.delayed(Duration.zero, () {
         showDialog(
+          // ignore: use_build_context_synchronously
           context: localContext, // Utiliser le contexte local
           builder: (BuildContext context) {
             return const AlertDialog(
